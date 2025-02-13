@@ -5,6 +5,25 @@
 
     RewriteEngine On
 
+    # redirect if index.php is in the URL
+    RewriteCond %{THE_REQUEST} /index\.php [NC]
+    RewriteRule ^(.*?)index\.php[^/] /$1? [L,R=302,NC,NE]
+
+    RewriteCond %{THE_REQUEST} /index\.php [NC]
+    RewriteRule ^(.*?)index\.php(?:/(.*))?$ /$1$2? [L,R=302,NC,NE]
+
+    RewriteCond %{HTTP_HOST} ^maximumplumbing\.plumberlakezurich\.com$ [OR]
+    RewriteCond %{HTTP_HOST} ^www\.maximumplumbing\.plumberlakezurich\.com$
+    RewriteRule ^/?$ "https\:\/\/maximumplumbing\.net\/" [R=301,L]
+
+   #force non-www
+    RewriteCond %{HTTP_HOST} www.(.*)$ [NC]
+    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+    #force https
+    RewriteCond %{HTTPS} off
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -14,8 +33,39 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
+    # Remove multiple slashes from URL
+    RewriteCond %{THE_REQUEST} \s[^?]*//
+    RewriteRule ^.*$ /$0 [R=301,L,NE]
+
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
 </IfModule>
+
+<IfModule mod_headers.c>
+Header set Connection keep-alive
+    <filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|swf)$">
+        Header set Cache-Control "max-age=1209600, public"
+    </filesMatch>
+
+    <filesMatch "\.(css)$">
+        Header set Cache-Control "max-age=1209600, public, must-revalidate"
+    </filesMatch>
+
+    <filesMatch "\.(xml|txt)$">
+        Header set Cache-Control "max-age=1209600, public, must-revalidate"
+    </filesMatch>
+
+    <filesMatch "\.(html|htm)$">
+        Header set Cache-Control "max-age=1209600, must-revalidate"
+    </filesMatch>
+
+    <FilesMatch "\.(gif|jpg|png|ico|css|js|pdf|txt)$">
+        Header append Cache-Control "public"
+    </FilesMatch>
+</IfModule>
+
+
+
