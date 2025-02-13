@@ -59,6 +59,15 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'phone' => '847-393-3733',
+
+    'city_list' => [
+    'Addison, IL', 'Algonquin, IL', 'Arlington Heights, IL', 'Aurora, IL', 'Barrington, IL', 'Bartlett, IL', 'Batavia, IL', 'Buffalo Grove, IL',
+    'Chicago, IL', 'Carol Stream, IL', 'Darien, IL', 'Deerfield, IL', 'Elgin, IL', 'Elk Grove, IL', 'Evanston, IL', 'Glenview, IL', 'Grayslake, IL', 'Glencoe, IL', 'Gurnee, IL',
+    'Highland Park, IL', 'Hoffman Estates, IL', 'Joliet, IL', 'Lake Forest, IL', 'Lake Zurich, IL', 'Long Grove, IL', 'Mount Prospect, IL', 'Naperville, IL', 'Northbrook, IL',
+    'Orland Park, IL', 'Palatine, IL', 'Plainfield, IL', 'Schaumburg, IL', 'St. Charles, IL', 'Tinley Park, IL', 'Vernon Hills, IL', 'Wheeling, IL', 'Winnetka, IL', 'Woodstock, IL', 'Other'
+],
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

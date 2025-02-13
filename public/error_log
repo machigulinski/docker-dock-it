@@ -1,0 +1,1 @@
+[14-Apr-2023 20:09:24 UTC] PHP Fatal error:  Declaration of App\Http\Middleware\IsAdmin::handle(Illuminate\Http\Request $request, Closure $next) must be compatible with Illuminate\Auth\Middleware\Authenticate::handle($request, Closure $next, ...$guards) in /home/maxplumber/maxplumbing/app/Http/Middleware/IsAdmin.php on line 17

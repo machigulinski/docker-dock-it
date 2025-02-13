@@ -1,0 +1,75 @@
+@extends('app')
+
+@section('title', 'Plumbing Reviews | Lake Zurich')
+
+@section('description', 'Customer reviews for local plumber near Lake Zurich, IL. We offer professional drain and plumbing service near Lake Zurich, IL.')
+
+@section('content')
+
+    <div id="testimonials_page" class="interior_page">
+
+        <section class="section_row py-3">
+            <div class="content_wrap">
+                <h1 class="small_heading center_text">Trusted Local Plumbers in Lake Zurich, IL and surrounding areas</h1>
+                <h2 class="section_heading center_text">What local clients say about Maximum Plumbing</h2>
+                <br>
+                <div>
+                    <h3 class="aggragateRatingNote paragraph_heading text-center mb-4 fs-5" itemscope itemprop="aggregateRating" itemtype="https://schema.org/AggregateRating">
+                        <span itemprop="name">Maximum Plumbing, Inc. </span> in <u class="d-inline-block">{{ $location['city_state'] }}</u> is rated
+                        <span class="average" itemprop="ratingValue" content="{{ $avgRating }}">{{ number_format($avgRating, 1) }}</span> / <span itemprop="bestRating" class="best">5</span> based on
+                        <span itemprop="reviewCount" class="votes">{{ $reviewsCount }}</span> local reviews
+                    </h3>
+                </div>
+                <div class="row mb-4">
+                    @foreach($reviews as $rev)
+                        <div class="col-lg-6 mb-4">
+                            <div class="testimonial_wrap" itemprop="review" itemscope itemtype="https://schema.org/Review">
+                                <p class="review_top d-flex">
+                                    <span class="reviewer" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                        <span itemprop="name" class="d-inline-block">{{ $rev->customer['customer_name'] }}</span>
+                                    </span>
+                                    <span class="rating d-flex align-items-center" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+                                        <span class="rating_number" itemprop="ratingValue">{{ number_format($rev->rating, 1) }}</span>
+                                        <span class="starDisplay d-flex align-items-center">
+                                            @for($i = 1; $i <= $rev->rating; $i++)<img class="icon_image" width="20" height="20" src="{{asset('images/star-best-plumber-lake-zurich-il.png')}}" title="Local Plumber near {{ $rev->location }}" alt="Local Plumber Star {{$i}}" />@endfor
+                                        </span>
+                                    </span>
+                                </p>
+                                <h3 class="paragraph_heading">
+                                    <span itemprop="name">{{ $rev['service_type'] }}</span>
+                                </h3>
+                                <p class="testimonial_content">
+                                    <span itemprop="description">{{ $rev['review_content'] }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
+                    <div class="col-lg-6 mb-4 d-lg-flex align-items-center">
+                        <div class="pt-4 w-100">
+                            <p class="paragraph_heading text-center text-capitalize mb-3">Are you our customer?</p>
+                            <div class="button_wrap text-center">
+                                <a class="custom_button" href="/leave-review#feedback-panel"  title="Local Plumber near {{$location['city_state']}}">
+                                    Leave A Review
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </section>
+
+        <x-contact-bar location="{{ $location['city_state'] }}"/>
+
+        <section class="map_section section_row">
+            <div class="row map_wrapper">
+                <div class="col-sm-12 column">
+                    <div class="map_container">
+                        <iframe class="responsive_map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d79525.13077034686!2d-88.07903917714661!3d42.206528550161515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880fa261e28b5491%3A0x68c9371127538342!2sMaximum%20Plumbing%20inc.!5e0!3m2!1sen!2sus!4v1581630691182!5m2!1sen!2sus" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+@endsection
